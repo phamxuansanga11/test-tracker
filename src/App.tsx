@@ -9,12 +9,16 @@ function App() {
   useEffect(() => {
     // Lấy referrer từ document.referrer
     const referrerUrl = document.referrer;
+    console.log("document:", document);
+    
+
     console.log({referrerUrl});
     
     setReferrer(referrerUrl || "Truy cập trực tiếp");
 
     // Lấy các thông tin UTM từ URL nếu có
     const queryParams = queryString.parse(window.location.search);
+    console.log({queryParams});
     if (queryParams.utm_source) {
       setUtmSource(queryParams.utm_source as string);
     }
