@@ -1,42 +1,16 @@
-import queryString from 'query-string';
-import { useEffect, useState } from 'react';
-import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import HomePage from './pages/Home';
+import Products from './pages/Products';
 
-function App() {
-  const [referrer, setReferrer] = useState<string | null>(null);
-  const [utmSource, setUtmSource] = useState<string | null>(null);
-
-  useEffect(() => {
-    // Lấy referrer từ document.referrer
-    const referrerUrl = document.referrer;
-    console.log("document:", document);
-    
-
-    console.log({referrerUrl});
-    
-    setReferrer(referrerUrl || "Truy cập trực tiếp");
-
-    // Lấy các thông tin UTM từ URL nếu có
-    const queryParams = queryString.parse(window.location.search);
-    console.log({queryParams});
-    if (queryParams.utm_source) {
-      setUtmSource(queryParams.utm_source as string);
-    }
-  }, []);
-
+const App = () => {
   return (
-    <div>
-      <h1>Tracking Redirect</h1>
-      <p>
-        <strong>Nguồn referrer:</strong> {referrer}
-      </p>
-      {utmSource && (
-        <p>
-          <strong>UTM Source:</strong> {utmSource}
-        </p>
-      )}
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/products" element={<Products />} />
+      </Routes>
+    </BrowserRouter>
   );
-}
+};
 
-export default App
+export default App;
